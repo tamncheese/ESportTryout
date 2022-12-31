@@ -1,0 +1,37 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Motivation
+{% endblock %}
+
+{% block main %}
+    <div class="mb-3">
+        <img id="quote" src="/static/{{quote}}.png" alt="Motivational Quote" class="quote">
+    </div>
+    <p>Enter Below</p>
+    <div class="input-group">
+        <textarea id="user_answer" class="form-control" style="max-width: 373px" style="min-height: 100px" aria-label="With textarea"></textarea>
+    </div>
+    <div class="mb-3">
+    <button class="btn btn-primary" id="check" type="button">Check</button>
+    </div>
+    <form action="/motivation" method="post">
+        <button class="btn btn-primary" hidden id="finish" type="submit">Finish</button>
+    </form>
+    <script>
+        document.getElementById("Game3").className = ("nav-link")
+        const answer = "{{answer}}";
+        document.getElementById("check").addEventListener("click", compare)
+        function compare() {
+            let x = document.getElementById("user_answer").value;
+            console.log(x);
+            console.log(x===answer);
+            // how to compare strings in js https://linuxhint.com/compare-strings-in-javascript/
+            if (x === answer) {
+                document.getElementById("finish").removeAttribute("hidden");
+            }
+        }
+
+    </script>
+
+{% endblock %}

@@ -1,0 +1,23 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Tag
+{% endblock %}
+
+{% block main %}
+    <h4>Welcome to the second trial.</h4>
+    <p>How fast can you move?</p>
+    <p>Tag the cat and click Finish as quick as possible.</p>
+    <p>Your time will be recorded.</p>
+    <p>Hit Start when you're ready!</p>
+    <form action="/tagInstructions" method="post">
+        <div class="mb-3">
+            <button type="submit" id="start" class="btn btn-primary" name="start">Start</button>
+        </div>
+    </form>
+    <p class="example">Example:</p>
+    <image src="/static/Game2.png"></image>
+    <script>
+        document.getElementById("Game2").className = ("nav-link")
+    </script>
+{% endblock %}

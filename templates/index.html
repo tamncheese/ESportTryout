@@ -1,0 +1,39 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Homepage
+{% endblock %}
+
+{% block main %}
+<!--Leaderboard-->
+    <h4>The top five contenders will be selected for the team.</h4>
+    <h4>We want you!</h4>
+    <div class="mb-3">
+        <a href="/sequenceInstructions" class="btn btn-primary btn-lg" role="button" aria-pressed="true">Begin Tryout</a>
+    </div>
+    <h4>Leaderboard</h4>
+    <table class="table table-hover table-bordered">
+        <thead>
+            <tr>
+                <th scope="col">Rank</th>
+                <th scope="col">Username</th>
+                <th scope="col">Sequence Time</th>
+                <th scope="col">Tag Time</th>
+                <th scope="col">Motivation Time</th>
+                <th scope="col">Total Time</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for row in data %}
+                <tr>
+                    <th scope="row">{{ row["rank"] }}</th>
+                    <td>{{ row["username"] }}</td>
+                    <td>{{ row["sequence"] }}</td>
+                    <td>{{ row["tag"] }}</td>
+                    <td>{{ row["motivation"] }}</td>
+                    <td>{{ row["total"] }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

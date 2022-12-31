@@ -1,0 +1,93 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Tag
+{% endblock %}
+
+{% block main %}
+    <!--Mozilla docs for canvas instructions-->
+    <canvas id="area" onclick="coor(event)"></canvas>
+    <div style="display:none;">
+        <img id="cat" src="/static/mycat.png" alt="Orange Cat" class="cat">
+    </div>
+    <form action="/tag" method="post">
+        <div>
+            <button class="btn btn-primary" hidden id="finish" type="submit">Finish</button>
+        </div>
+    <script>
+        document.getElementById("Game2").className = ("nav-link")
+        let ctx;
+        let canvas;
+        var xcoor = 0;
+        var ycoor = 0;
+        let scale = 0.1;
+        let catXCorner;
+        let catYCorner;
+        let startx = 0;
+        let starty = 0;
+        canvas = document.getElementById("area");
+        ctx = canvas.getContext("2d");
+
+        canvas.width = window.innerWidth*0.8;
+        canvas.height = window.innerHeight*0.6;
+
+        let cat = {x: 0, y:0, xspeed: 30, yspeed: 30, img: new Image()};
+        cat.img.src = '/static/mycat.png';
+        // random starting point and makes sure the image edges does not spawn out of bounds
+        startx = Math.random() * (canvas.width - cat.img.width*scale - 1);
+        starty = Math.random() * (canvas.height - cat.img.height*scale - 1);
+        cat.x = startx;
+        cat.y = starty;
+        console.log("startx: " + cat.x + " and starty: " + cat.y);
+        // loads image in
+        const image = document.getElementById("cat")
+        image.addEventListener("load", (e) => {
+           ctx.drawImage(image, cat.x, cat.y, cat.img.width*scale, cat.img.height*scale);
+        });
+        move();
+        // Referenced w3schools for setTimeout() function, Mozilla mdn web_docs for learning how a canvas works
+        // Referenced https://github.com/AlessioMaddaluno/bouncing-dvd-logo.git, for bounce detection
+        // Referenced https://www.nngroup.com/articles/animation-duration/ NNG on the appropriate delay ms to set
+        function move() {
+            // moves the cat around
+            setTimeout(() => {
+                ctx.fillStyle = 'black';
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
+                ctx.drawImage(image,cat.x, cat.y, cat.img.width*scale, cat.img.height*scale);
+                catXCorner = cat.x + cat.img.width*scale;
+                catYCorner = cat.y + cat.img.height*scale;
+                console.log("cat x coords: " + cat.x + " and " + catXCorner + ", cat y coords: " + cat.y + " and " + catYCorner);
+                bounce();
+                cat.x += cat.xspeed;
+                cat.y += cat.yspeed;
+                move();
+            }, 150);
+        }
+        // https://stackoverflow.com/questions/43172115/get-the-mouse-coordinates-when-clicking-on-canvas
+        function coor(event) {
+            // Retrieves the coordinate of where the user clicked
+            let x = event.offsetX;
+            let y = event.offsetY;
+            xcoor = x;
+            ycoor = y;
+            // console.log("x cords: " + xcoor + ", y coords: " + ycoor);
+            compare();
+        }
+        function compare() {
+            // compares where the user clicked and the hitbox of the image
+            // used a constant 10 pixels to set the hitbox around the image.
+            if (cat.x - 10 <= xcoor && xcoor <= catXCorner + 10 && cat.y - 10 <= ycoor && ycoor <= catYCorner + 10) {
+                // console.log("True");
+                document.getElementById("finish").removeAttribute("hidden");
+            }
+        }
+        function bounce() {
+            if (cat.x <= 0 || cat.x + cat.img.width*scale >= canvas.width) {
+                cat.xspeed *= -1;
+            }
+            if (cat.y <= 0 || cat.y + cat.img.height*scale >= canvas.height) {
+                cat.yspeed *= -1;
+            }
+        }
+    </script>
+{% endblock %}

@@ -1,0 +1,23 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Motivation
+{% endblock %}
+
+{% block main %}
+    <h4>Welcome to the third and last trial.</h4>
+    <p>How fast can you type?</p>
+    <p>Type the message on the next screen and motivate your teammates!</p>
+    <p>Your time will be recorded.</p>
+    <p>Hit Start when you're ready!</p>
+    <form action="/motivationInstructions" method="post">
+        <div class="mb-3">
+            <button type="submit" id="start" class="btn btn-primary" name="start">Start</button>
+        </div>
+    </form>
+    <p class="example">Example:</p>
+    <image src="/static/2.png" class="quote"></image>
+    <script>
+        document.getElementById("Game3").className = ("nav-link")
+    </script>
+{% endblock %}

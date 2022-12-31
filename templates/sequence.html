@@ -1,0 +1,83 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Sequence
+{% endblock %}
+
+{% block main %}
+    <form action="/sequence" method="post">
+        <div class="mb-3">
+            <table class="center" id="sequenceTable">
+                {% for row in table %}
+                <tr>
+                    {% for cell in row %}
+                        {% if cell["value"] == 0 %}
+                            <td><button type = "button" id="button" class="btn btn-primary" name = "{{ cell["name"] }}" value="{{ cell["value"] }}">{{ cell["value"] }}</button></td>
+                        {% else %}
+                            <td><button type = "button" id="button{{ cell["value"] }}" class="btn btn-primary" name = "{{ cell["name"] }}" value="{{ cell["value"] }}">{{ cell["value"] }}</button></td>
+                        {% endif %}
+                    {% endfor %}
+                </tr>
+                {% endfor %}
+            </table>
+        </div>
+        <button class="btn btn-primary" hidden id="finish" type="submit">Finish</button>
+    </form>
+    <p id="feedback1"></p>
+    <script>
+        document.getElementById("Game1").className = ("nav-link")
+        let total = 0;
+        // button states that can change to force user to press them sequentially
+        let active1=true;
+        let active2=false;
+        let active3=false;
+        let active4=false;
+        let active5=false;
+        document.getElementById("button1").addEventListener("click", increment1)
+        document.getElementById("button2").addEventListener("click", increment2)
+        document.getElementById("button3").addEventListener("click", increment3)
+        document.getElementById("button4").addEventListener("click", increment4)
+        document.getElementById("button5").addEventListener("click", increment5)
+        function increment1() {
+            if (active1) {
+                total += 1;
+                document.querySelector('#feedback1').innerHTML = total;
+                active1 = false;
+                active2 = true;
+            }
+        }
+        function increment2() {
+            if (active2) {
+                total += 1;
+                document.querySelector('#feedback1').innerHTML = total;
+                active2 = false;
+                active3 = true;
+            }
+        }
+        function increment3() {
+            if (active3) {
+                total += 1;
+                document.querySelector('#feedback1').innerHTML = total;
+                active3 = false;
+                active4 = true
+            }
+        }
+        function increment4() {
+            if (active4) {
+                total += 1;
+                document.querySelector('#feedback1').innerHTML = total;
+                active4 = false;
+                active5 = true;
+            }
+        }
+        function increment5() {
+            if (active5) {
+            total += 1;
+            document.querySelector('#feedback1').innerHTML = total;
+            document.getElementById("finish").removeAttribute("hidden");
+            active5 = false;
+            }
+        }
+    </script>
+
+{% endblock %}

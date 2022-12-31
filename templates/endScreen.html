@@ -1,0 +1,13 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Debriefing
+{% endblock %}
+
+{% block main %}
+    <h4>Thank you for your participation. The top five contenders will be selected for the team. </h4>
+    <h4>See the leaderboard</h4>
+    <form action="/endScreen" method="post">
+        <button class="btn btn-primary" id="finish" type="submit">See leaderboard</button>
+    </form>
+{% endblock %}
